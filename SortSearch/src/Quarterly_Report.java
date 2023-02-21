@@ -2,6 +2,8 @@ import java.util.HashMap;
 
 public class Quarterly_Report {
 
+	
+	
 	// this array holds the sales data
 	// the outer array is departments
 	// the inner array is monthly sales
