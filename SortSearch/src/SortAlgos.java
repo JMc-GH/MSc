@@ -4,12 +4,16 @@ public class SortAlgos {
 
 
 	
-	public int[] A = {0, 5, 13, 2, 25, 7, 17, 20, 8, 4};
+	private int[] A = { 0, 5,5,5,5,5,5,5,5,5};
 	
 	
 	public SortAlgos() {
 		// generateArray(11,100);
 	
+	}
+	
+	public SortAlgos(int[] inputArray) {
+		A = inputArray;
 	}
 
 	
@@ -119,29 +123,30 @@ public class SortAlgos {
 	
 	
 	// QUICKSORT
-	public void quickSort(int start, int end) {
+	public void quickSort(int p, int r) {
 		
-		int pivot;
+		int q;
 		
-		if (start < end) {
-			pivot = partition(start,end);
-			quickSort(start,pivot-1);
-			quickSort(pivot+1,end);
+		if (p < r) {					//base condition (if start is same at end)
+			q = partition(p,r);
+			spitArray();
+			quickSort(p,q-1);
+			quickSort(q+1,r);
 		}
 	}
 	
-	private int partition(int start, int end) {
+	private int partition(int p, int r) {
 		
-		int lastElement = A[end];
-		int pivotPoint = start - 1;
-		for (int j=start;j < end -1;j++) {
-			if (A[j] <= lastElement) {
-				pivotPoint++;
-				swapElement(pivotPoint,j);
+		int x = A[r];			        //contents of last element (pivotpoint)
+		int i = p - 1;					//index for elements < pivot
+		for (int j=p;j < r;j++) {	//last element is the pivot point
+			if (A[j] >= x) {			//if the current element is smaller that the pivot
+				i++;					
+				swapElement(i,j);		//put it at the start of the array cos its smaller than the pivot
 			}		
 		}
-		swapElement(pivotPoint+1,end);
-		return pivotPoint+1;
+		swapElement(i+1,r);		//this puts the pivot point at the end of the < items
+		return i+1;				
 	}
 	
 	
@@ -192,9 +197,9 @@ public class SortAlgos {
 		testSort.spitArray();
 		//testHeap.buildMaxHeap();
 		//testHeap.heapSort();
-		testSort.mergeSort(1, 9);
+		//testSort.mergeSort(1, 9);
 		
-		//testSort.quickSort(1, testSort.A.length);
+		testSort.quickSort(1, testSort.A.length-1);
 		testSort.spitArray();
 	}
 
