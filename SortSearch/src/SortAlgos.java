@@ -1,20 +1,18 @@
-import java.util.Random;
-
 public class SortAlgos {
 
 
 	
-	private int[] A = { 0, 5,5,5,5,5,5,5,5,5};
+	private Integer[] A = { 0, 5,5,5,5,5,5,5,5,5};
 	
+	
+	public SortAlgos(Integer[] sortArray) {
+		A = sortArray;
+	}
 	
 	public SortAlgos() {
-		// generateArray(11,100);
-	
+		
 	}
 	
-	public SortAlgos(int[] inputArray) {
-		A = inputArray;
-	}
 
 	
 	// MERGE SORT
@@ -100,9 +98,8 @@ public class SortAlgos {
 			heapify(largest,heapSize);
 		}
 
-		
-		
 	}
+
 	
 	public void buildMaxHeap() {
 		for (int i=((A.length-1)/2);i > 0;i--) {
@@ -110,13 +107,14 @@ public class SortAlgos {
 		}
 	}
 	
+	
 	public void heapSort() {
 		
 		for (int i=A.length-1;i > 1;i--) {
 			swapElement(1,i);
 			heapify(1,i-1);
 			System.out.print(i + ":"); 
-			spitArray();
+			Helpers.printArray(A);
 		}
 		
 	}
@@ -129,7 +127,7 @@ public class SortAlgos {
 		
 		if (p < r) {					//base condition (if start is same at end)
 			q = partition(p,r);
-			spitArray();
+			Helpers.printArray(A);
 			quickSort(p,q-1);
 			quickSort(q+1,r);
 		}
@@ -166,41 +164,18 @@ public class SortAlgos {
 	}
 	
 	
-	private void generateArray(int noOfElements,int maxValue) {
-		
-		Random rand = new Random();
-		
-		int[] temp = new int[noOfElements+1];
-		
-		for (int i = 1; i < noOfElements+1;i++) {
-			temp[i] = rand.nextInt(maxValue);
-		}
-			
-		A = temp;
-	
-		}
-	
-	private void spitArray() {
-		
-		for (int i=0;i<A.length;i++) {
-			System.out.print(A[i] + "\t");
-		}
-		System.out.println("----");
-	}
-	
 
 	
 	// MAIN
 	public static void main(String[] args) {
 		
 		SortAlgos testSort = new SortAlgos();
-		testSort.spitArray();
-		//testHeap.buildMaxHeap();
-		//testHeap.heapSort();
-		//testSort.mergeSort(1, 9);
 		
-		testSort.quickSort(1, testSort.A.length-1);
-		testSort.spitArray();
+		testSort.A = Helpers.generateRandomArray(Integer.class, 50);
+		testSort.mergeSort(0,49);
+		
+		Helpers.printArray(testSort.A);
+
 	}
 
 }
