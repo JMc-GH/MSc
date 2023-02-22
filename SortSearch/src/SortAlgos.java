@@ -127,7 +127,7 @@ public class SortAlgos {
 		
 		if (p < r) {					//base condition (if start is same at end)
 			q = partition(p,r);
-			Helpers.printArray(A);
+			//Helpers.printArray(A);
 			quickSort(p,q-1);
 			quickSort(q+1,r);
 		}
@@ -138,7 +138,7 @@ public class SortAlgos {
 		int x = A[r];			        //contents of last element (pivotpoint)
 		int i = p - 1;					//index for elements < pivot
 		for (int j=p;j < r;j++) {	//last element is the pivot point
-			if (A[j] >= x) {			//if the current element is smaller that the pivot
+			if (A[j] <= x) {			//if the current element is smaller that the pivot
 				i++;					
 				swapElement(i,j);		//put it at the start of the array cos its smaller than the pivot
 			}		
@@ -171,10 +171,21 @@ public class SortAlgos {
 		
 		SortAlgos testSort = new SortAlgos();
 		
-		testSort.A = Helpers.generateRandomArray(Integer.class, 50);
-		testSort.mergeSort(0,49);
-		
+		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
 		Helpers.printArray(testSort.A);
+		testSort.mergeSort(0,testSort.A.length-1); 
+		Helpers.printArray(testSort.A);
+
+		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
+		Helpers.printArray(testSort.A);
+		testSort.quickSort(0, 9);
+		Helpers.printArray(testSort.A);
+		
+//		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
+//		Helpers.printArray(testSort.A);
+//		testSort.buildMaxHeap();
+//		testSort.heapSort();
+//		Helpers.printArray(testSort.A);
 
 	}
 

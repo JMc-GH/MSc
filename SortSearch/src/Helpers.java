@@ -59,6 +59,8 @@ public static <T> void printArray (T[] testArray) {
 	for (T element : testArray) {
 		System.out.print(element + "\t");
 	}
+	
+	System.out.println("--");
 }
 
 
