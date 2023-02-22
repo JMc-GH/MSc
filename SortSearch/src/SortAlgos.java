@@ -169,23 +169,26 @@ public class SortAlgos {
 	// MAIN
 	public static void main(String[] args) {
 		
-		SortAlgos testSort = new SortAlgos();
-		
-		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
-		Helpers.printArray(testSort.A);
-		testSort.mergeSort(0,testSort.A.length-1); 
-		Helpers.printArray(testSort.A);
-
-		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
-		Helpers.printArray(testSort.A);
-		testSort.quickSort(0, 9);
-		Helpers.printArray(testSort.A);
+//		SortAlgos testSort = new SortAlgos();
+//		
+//		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
+//		Helpers.printArray(testSort.A);
+//		testSort.mergeSort(0,testSort.A.length-1); 
+//		Helpers.printArray(testSort.A);
+//
+//		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
+//		Helpers.printArray(testSort.A);
+//		testSort.quickSort(0, 9);
+//		Helpers.printArray(testSort.A);
 		
 //		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
 //		Helpers.printArray(testSort.A);
 //		testSort.buildMaxHeap();
 //		testSort.heapSort();
 //		Helpers.printArray(testSort.A);
+		
+		System.out.println((char) 97);
+		
 
 	}
 

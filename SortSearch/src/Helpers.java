@@ -3,33 +3,6 @@ import java.util.Random;
 public class Helpers {
 
 	
-public double[] generateDoubleArray(int min, int max, int size) {
-	
-	Random rand = new Random();
-	
-	double[] temp = new double[size];
-	
-	for (int i=0;i<size;i++) {
-		temp[i] = rand.nextDouble();
-	}
-	
-	return temp;
-	
-}
-
-
-public int stringToInt(String input) {
-	
-	int charSum = 0 ;
-	
-	for (char c : input.toCharArray()) {
-		charSum = charSum + ((int) c)*128;
-	}
-	
-	return charSum;
-}
-
-
 public static <T> T[] generateRandomArray(Class<T> clazz, int length) {
     T[] array = (T[]) java.lang.reflect.Array.newInstance(clazz, length);
     Random rand = new Random();
@@ -63,5 +36,36 @@ public static <T> void printArray (T[] testArray) {
 	System.out.println("--");
 }
 
+public static String[] generateStringArray (int stringLength, int arrayLength) {
+	
+	Helpers internalHelper = new Helpers();
+	
+	String[] outputArray = new String[arrayLength];
+	
+	for (int i=0;i < arrayLength;i++) {
+		outputArray[i] = internalHelper.generateString(stringLength);	
+	}
+	
+	return outputArray;
+	
+}
+
+private String generateString(int stringLength) {
+	
+	String outputString = new String();
+	Random rand = new Random();
+	
+	for (int i=1; i < stringLength;i++) {
+		outputString += (char) (rand.nextInt(58)+65);  ///TODO: note this clever offset
+	}
+	return outputString;
+	
+}
+
+public static void main(String[] args) {
+	
+	printArray(generateStringArray(10,10));
+	
+}
 
 }
