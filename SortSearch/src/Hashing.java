@@ -13,6 +13,8 @@ public class Hashing {
 	
 	public static long djb2Hash(String str) {
 	    // TODO: generated code - understand line-byline
+		// REVIEW: before exam
+		
 		
 		long hash = 5381;
 	    for (int i = 0; i < str.length(); i++) {
@@ -24,6 +26,10 @@ public class Hashing {
 	
 	
 	public static void main(String[] args) {
+		
+		// TODO:
+		
+
 		
 		String[] keys = Helpers.generateStringArray(10, 10);
 		Helpers.printArray(keys);
