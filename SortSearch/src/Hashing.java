@@ -34,11 +34,7 @@ public class Hashing {
 	
 	
 	public static void main(String[] args) {
-		
-		// TODO:
-		
 
-		
 		String[] keys = Helpers.generateStringArray(10, 10);
 		Helpers.printArray(keys);
 		System.out.println();
