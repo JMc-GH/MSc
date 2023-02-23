@@ -1,4 +1,12 @@
 
+// TODO: MurmurHash  -- simple / elegant
+// TODO: SipHash-2-4  -- python
+// TODO: Fowler–Noll–Vo (FNV) hash function. -- old pythoin
+// TODO: BLAKE3 -- cutting edge
+// TODO: XXH3 -- cutting edge
+// TODO: HighwayHash -- cutting edge
+
+
 public class Hashing {
 
 	public int modHash(int key) {
