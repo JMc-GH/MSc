@@ -29,8 +29,10 @@ public static <T> T[] generateRandomArray(Class<T> clazz, int length) {
 
 public static <T> void printArray (T[] testArray) {
 	
+	int i = 0;
 	for (T element : testArray) {
-		System.out.print(element + "\t");
+		System.out.println(i + "\t : \t" +element);
+		i++;
 	}
 	
 	System.out.println("--");
