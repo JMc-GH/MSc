@@ -55,17 +55,9 @@ public class Hashing {
 	
 	// main hashing function
 	private int hash(int k, int m ) {
-		
-		int hashValue = 1;
-		
-		switch (hashMode) {
-		case HASH_MODULUS:
-			hashValue = k % m;
-			break;
-		default: 
-			hashValue = k % m;
-		}
-		
+	
+		int hashValue = k % m;
+
 		if (hashValue == 0) {
 			hashValue = 1;
 		}
@@ -134,7 +126,7 @@ public class Hashing {
 				break;
 			default: // Double Hashing
 				i++;
-				i = i * (1 + (k % m));
+				i = i * (1 + (k % m));  //TODO: not working
 				
 			}
 		}
@@ -144,9 +136,28 @@ public class Hashing {
 		
 	}
 	
-	public int search(int k) {
+	public int search(int k, int m) {
 		//TODO : Should count deleted items?
-		return 0;
+		
+		int index = hash(k,m);
+		int j = 0;
+		
+		while (hashTable[index] != k) {
+			switch (addressingMode) {
+			case PROBE_LINEAR:
+				index++;
+				break;
+			case PROBE_QUADRATIC:
+				j++;
+				index=quadHash(index,j);
+				break;
+			default: //TODO: double hashing
+			
+			}
+		}
+
+		return index;
+			
 	}
 	
 	public void delete(int k) {
