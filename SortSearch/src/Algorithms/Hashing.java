@@ -55,7 +55,6 @@ public class Hashing {
 	 *
 	 * @param addressingMode the addressing mode to use for collision resolution, specified using one of the static constants defined in this class
 	 */
-
 	public void setAddressingMode(int addressingMode) {
 		this.addressingMode = addressingMode;
 	}
@@ -84,7 +83,7 @@ public class Hashing {
 	private int quadHash(int key,int counter) {
 		
 		int ret = key + counter^2;
-	
+		
 		if (ret==0)ret = 1;
 		
 		return ret;
@@ -98,7 +97,6 @@ public class Hashing {
 	 * @param keysToAdd the array of integer keys to be added to the hash table
 	 * @param hashMapSize the size of the hash table
 	 */
-
 	public void buildHashmap(Integer[] keysToAdd,int hashMapSize) {
 		// Collision resolution test for W6.1
 		// this populates the hashmap from an array of integers
