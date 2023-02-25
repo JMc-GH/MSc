@@ -24,7 +24,7 @@ public class Test_Code {
 	
 		testHash.setAddressingMode(Hashing.PROBE_QUADRATIC);
 		testHash.buildHashmap(quadraticTest, 11);
-		System.out.println(testHash.search(59, 11));
+		System.out.println(testHash.search(19, 11));
 	}
 
 }

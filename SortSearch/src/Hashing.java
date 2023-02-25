@@ -1,16 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
-
-
-
 // TODO: Java code standards: 
 
-// TODO: MurmurHash  -- simple / elegant
-// TODO: SipHash-2-4  -- python
-// TODO: Fowler–Noll–Vo (FNV) hash function. -- old pythoin
-// TODO: BLAKE3 -- cutting edge
-// TODO: XXH3 -- cutting edge
-// TODO: HighwayHash -- cutting edge
+/*
+	OTHER HASHING ALGOS
+	-------------------
+	
+	MurmurHash  -- simple / elegant
+	SipHash-2-4  -- python
+	Fowler–Noll–Vo (FNV) hash function. -- old pythoin
+	BLAKE3 -- cutting edge
+	XXH3 -- cutting edge
+	HighwayHash -- cutting edge
+ */
+
 
 
 public class Hashing {
@@ -65,6 +66,15 @@ public class Hashing {
 		return hashValue;
 	}
 	
+	// for quadratic probing
+	private int quadHash(int key,int counter) {
+		
+		int ret = key + counter^2;
+	
+		if (ret==0)ret = 1;
+		
+		return ret;
+	}
 	
 	public void buildHashmap(Integer[] keysToAdd,int hashMapSize) {
 		// Collision resolution test for W6.1
@@ -95,18 +105,9 @@ public class Hashing {
 		System.out.println("slot \t : \t key");
 		
 		Helpers.printArray(hashTable);
-		
 	}
 	
-	private int quadHash(int key,int counter) {
-		
-		int ret = key + counter^2;
-	
-		if (ret==0)ret = 1;
-		
-		return ret;
 
-	}
 	public void insert(int k,int m) {
 		
 		int i = hash(k,m);		//generates the hash
@@ -132,43 +133,37 @@ public class Hashing {
 		}
 		System.out.println("Added Slot " + i);
 		hashTable[i] = k;
-		
-		
 	}
+	
 	
 	public int search(int k, int m) {
 		//TODO : Should count deleted items?
 		
 		int index = hash(k,m);
 		int j = 0;
-		
-		while (hashTable[index] != k) {
-			switch (addressingMode) {
-			case PROBE_LINEAR:
-				index++;
-				break;
-			case PROBE_QUADRATIC:
-				j++;
-				index=quadHash(index,j);
-				break;
-			default: //TODO: double hashing
-			
+			while (index <= m && hashTable[index] != k ) {
+				switch (addressingMode) {
+				case PROBE_LINEAR:
+					index++;
+					break;
+				case PROBE_QUADRATIC:
+					j++;
+					index=quadHash(index,j);
+					break;
+				default: //TODO: double hashing
+				
+				}
 			}
-		}
-
-		return index;
-			
+		if (index>m) return -1;
+			else return index;
 	}
+	
 	
 	public void delete(int k) {
 		//TODO : Add deleted marker?
 	}
 	
-
-
-		
-		
-	}	
+}	
 	
 
 	
