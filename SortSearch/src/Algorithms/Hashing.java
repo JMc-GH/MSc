@@ -1,8 +1,18 @@
 package Algorithms;
-// TODO: Java code standards: 
+
+
 
 /*
-	OTHER HASHING ALGOS
+ * Algorithms and Data Structures
+ * Week 6: Lesson 1
+ * 
+ * This class represents the Hashtable data structure. 
+ * 
+ * @author John McEwan
+ */
+	
+/*
+ OTHER HASHING ALGOS
 	-------------------
 	
 	MurmurHash  -- simple / elegant
@@ -25,20 +35,11 @@ public class Hashing {
 	public static final int HASH_MODULUS = 1;
 	
 	private int addressingMode = PROBE_LINEAR;
-	private int hashMode = HASH_MODULUS;
 	
 	
 	// GETTERS AND SETTERS
 	
-	public int getHashMode() {
-		return hashMode;
-	}
 
-	public void setHashMode(int hashMode) {
-		this.hashMode = hashMode;
-	}
-
-	
 	public Integer[] getHashTable() {
 		return hashTable;
 	}
@@ -48,6 +49,12 @@ public class Hashing {
 		return addressingMode;
 	}
 
+	/**
+	 * Sets the addressing mode to be used for collision resolution when inserting into the hash table.
+	 * The addressing mode should be specified using one of the static constants defined in this class.
+	 *
+	 * @param addressingMode the addressing mode to use for collision resolution, specified using one of the static constants defined in this class
+	 */
 
 	public void setAddressingMode(int addressingMode) {
 		this.addressingMode = addressingMode;
@@ -55,7 +62,13 @@ public class Hashing {
 
 
 	
-	// main hashing function
+	/*
+	Calculates the hash value for a given key using the modulo operation and
+	the provided size of the hash table.
+	@param k the key to calculate the hash value for
+	@param m the size of the hash table
+	@return the calculated hash value for the key
+	*/
 	private int hash(int k, int m ) {
 	
 		int hashValue = k % m;
@@ -77,6 +90,15 @@ public class Hashing {
 		return ret;
 	}
 	
+	/**
+	 * Builds a hash table from an array of integer keys using the specified hash map size. 
+	 * Prints the initial hash function results and the open addressing results after inserting
+	 * all the keys into the hash table using the set addressing mode.
+	 *
+	 * @param keysToAdd the array of integer keys to be added to the hash table
+	 * @param hashMapSize the size of the hash table
+	 */
+
 	public void buildHashmap(Integer[] keysToAdd,int hashMapSize) {
 		// Collision resolution test for W6.1
 		// this populates the hashmap from an array of integers
@@ -108,7 +130,13 @@ public class Hashing {
 		Helpers.printArray(hashTable);
 	}
 	
-
+	/**
+	 * Inserts into a hashtable using the method set in setAddressingMode
+	 *
+	 * @param k the key to be added
+	 * @param m the total size of the hashmap
+	 * 
+	 */
 	public void insert(int k,int m) {
 		
 		int i = hash(k,m);		//generates the hash
@@ -135,10 +163,17 @@ public class Hashing {
 		System.out.println("Added Slot " + i);
 		hashTable[i] = k;
 	}
-	
-	
+
+	/**
+	 * Searches for a given key in the hash table using the specified hash function and 
+	 * addressing mode. If the key is found, returns the index of the slot containing the key.
+	 * If the key is not found, returns -1.
+	 *
+	 * @param k the key to search for
+	 * @param m the total size of the hash table
+	 * @return the index of the slot containing the key or -1 if the key is not found
+	 */
 	public int search(int k, int m) {
-		//TODO : Should count deleted items?
 		
 		int index = hash(k,m);
 		int j = 0;
