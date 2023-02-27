@@ -1,4 +1,11 @@
+// TODO: Sanitise user input
+// TODO: Check output
+// TODO: Search for car
+// TODO: Manufacturer summary report
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -6,20 +13,20 @@ import java.util.Scanner;
  * 
  */
 
-/**
- * @author john
- *
- */
+
 public class CarShop {
 
-	/**
-	 * 
-	 */
-	
 	private static CarShop vertu = new CarShop(true);
 	private  ArrayList<Car> stock = new ArrayList<Car>();
 	private  HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
 	
+	
+	/**
+	 * Represents a car object with an ID, manufacturer, model, year, mileage, engine size, grade, and price.
+	 * The car object is immutable after creation, and its attributes can be accessed using getter methods.
+	 * 
+	 * @author John McEwan
+	 */
 	private class Car {
 		private int ID;
 		private String manufacturer;
@@ -30,6 +37,18 @@ public class CarShop {
 		private CarGrade grade;
 		private float price;
 		
+		  /**
+	     * Creates a new car object with the specified attributes.
+	     * 
+	     * @param ID the ID of the car
+	     * @param manufacturer the manufacturer of the car
+	     * @param model the model of the car
+	     * @param year the year of the car
+	     * @param mileage the mileage of the car
+	     * @param engineSize the engine size of the car
+	     * @param grade the grade of the car
+	     * @param price the price of the car
+	     */
 		public Car(int iD, String manufacturer, String model, short year, int mileage, String engineSize,
 				CarShop.CarGrade grade, float price) {
 			super();
@@ -148,7 +167,16 @@ public class CarShop {
 
 	}
 
-
+	/**
+	*
+	* Adds a new car to the stock by taking input from the user using a scanner object.
+	*
+	* The user is prompted to enter the manufacturer, model, year, mileage, engine size, grade and price of the car.
+	*
+	* The entered values are then used to create a new Car object which is added to the stock ArrayList.
+	*
+	* @param scn a Scanner object used to take input from the user.
+	*/
 	private void addCarToStock(Scanner scn) {
 		
 		// TODO:  drop down lists for selections as validation
@@ -191,19 +219,75 @@ public class CarShop {
 		
 	}
 	
+	private void sortCarsbyModel() {
+		
+	       Collections.sort(stock, new Comparator<Car>() {
+	    	   @Override
+	            public int compare(Car c1, Car c2) {
+	                return c1.getModel().compareTo(c2.getModel());
+	            }
+	        });
+	       
+	}
 	
-	//TODO: write a clever sort for the collecrtions
+	private Car lowestMilage() {
+		
+	       Collections.sort(stock, new Comparator<Car>() {
+	            public int compare(Car c1, Car c2) {
+	                return Integer.compare(c1.getMileage(), c2.getMileage());
+	            }
+	        });
+	       
+	       return stock.get(0);
+	}
+	private void sortCarsbyPrice() {
+		
+	       Collections.sort(stock, new Comparator<Car>() {
+	            public int compare(Car c1, Car c2) {
+	                return Float.compare(c1.getPrice(), c2.getPrice());
+	            }
+	        });
+	       
+	}
 	
-	
+	/**
+	 * Prints a formatted list of cars in stock to the console.
+	 * The list includes the ID, manufacturer, model, year, mileage, engine size, grade, and price of each car.
+	 * The title line is formatted in bold text using ANSI escape codes.
+	 * 
+	 * @throws NullPointerException if the stock is null
+	 */
 	private void listCars() {
 		
+		System.out.print("\033[1m");
 		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
+		System.out.print("\033[0m");
+		
 		for (Car inStock: stock ) {
 			System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", inStock.ID, inStock.manufacturer, inStock.model, 
 					inStock.year, inStock.mileage, inStock.engineSize, inStock.grade.condition, inStock.price);
 		}
 	}
 	
+	private void printCarDetails(Car toPrint) {
+		System.out.print("\033[1m");
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
+		System.out.print("\033[0m");
+		
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
+				toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
+		
+	}
+	
+	/**
+	*
+	* This method displays a menu of options to the user and allows them to choose an option.
+	* Depending on the user's choice, the method either adds a new car to the stock, lists the cars in alphabetical order,
+	* lists the cars in order of increasing price, displays the car with the lowest mileage, or displays the car with the lowest price.
+	* The method loops until the user chooses to exit.
+	* 
+	* @throws InputMismatchException if the user inputs a non-integer value
+	*/
 	private void menuChoice() {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -217,7 +301,9 @@ public class CarShop {
 	            System.out.println("3. List cars (Lowest To Highest)");
 	            System.out.println("4. Car with lowest mileage");
 	            System.out.println("5. Car with lowest price");
-	            System.out.println("6. Exit");
+	            System.out.println("6. Search by ID");
+	            System.out.println("7. Stock by Manufacturer");
+	            System.out.println("8. Exit");
 	            System.out.print("Your choice: ");
 	           
 	            
@@ -246,13 +332,15 @@ public class CarShop {
 	                    break;
 	                case 6:
 	                    break;
+	                case 7:
+	                	break;
 	                default:
 	                    System.out.println("Invalid Choice");
 	                    break;
 	            }
 	            
 	            System.out.println(); // Print blank line for readability
-        	} while (choice != 6);
+        	} while (choice != 8);
 	        
 	        scanner.close();
 	        
@@ -263,12 +351,11 @@ public class CarShop {
 
 	public static void main(String[] args) {
 		
+		vertu.listCars();
+		vertu.sortCarsbyPrice();
+		vertu.listCars();
+		vertu.printCarDetails(vertu.stock.get(0));
 		
-
-		
-		vertu.menuChoice();
-		
-
 	}
 
 }
