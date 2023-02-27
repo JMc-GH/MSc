@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -14,8 +16,10 @@ public class CarShop {
 	 * 
 	 */
 	
+	private static CarShop vertu = new CarShop();
+	private  ArrayList<Car> stock = new ArrayList<Car>();
+	private  HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
 	
-	@SuppressWarnings("unused")
 	private class Car {
 		private int ID;
 		private String manufacturer;
@@ -83,47 +87,93 @@ public class CarShop {
 		private String condition;
 		private String description;
 		
-		public CarGrade (int ID) {
-			this.ID = ID;
-		}
-		public char getGrade() {
-			return grade;
+		public CarGrade(int iD, char grade, String condition, String description) {
+			super();
+			ID = iD;
+			this.grade = grade;
+			this.condition = condition;
+			this.description = description;
 		}
 
-		public void setGrade(char grade) {
-			this.grade = grade;
+		public char getGrade() {
+			return grade;
 		}
 
 		public String getCondition() {
 			return condition;
 		}
 
-		public void setCondition(String condition) {
-			this.condition = condition;
-		}
-
 		public String getDescription() {
 			return description;
 		}
 
-		public void setDescription(String description) {
-			this.description = description;
-		}
 
 
 	}
 	
 	public CarShop() {
-		// TODO: Generate CarGrades
+		
+		ourGrades.put('A', new CarGrade(1, 'A', "Excellent", "Very slightly used, virtually as good as new."));
+		ourGrades.put('B', new CarGrade(2, 'B', "Good", "Good condition but with visible flaws."));
+		ourGrades.put('C', new CarGrade(3, 'C', "Average", "Average condition, with minor damage."));
+		ourGrades.put('D', new CarGrade(4, 'D', "Poor", "Poor condition with significant damage, but the car is functional."));
 		
 	}
 
 
-	private void showMenu() {
+	private void addCarToStock(Scanner scn) {
 		
-	        Scanner scanner = new Scanner(System.in);
+		// TODO:  drop down lists for selections as validation
+		
+		
+		Car newCar = new Car(1);
+
+		
+		System.out.println("ADD NEW CAR TO STOCK");
+		System.out.println("====================\n");
+		
+		System.out.println("Manufacturer:");
+		newCar.setManufacturer(scn.next());
+		
+		
+		System.out.println("Model:");
+		newCar.setModel(scn.next());
+		
+		System.out.println("Year:");
+		newCar.setYear(scn.nextShort());
+		
+		System.err.println("Mileage:");
+		newCar.setMileage(scn.nextInt());
+		
+		System.out.println("Engine Size");
+		newCar.setEngineSize(scn.next());
+		
+		
+		System.out.println("Grade (A,B,C,D,E):");
+		
+		newCar.setGrade(ourGrades.get(scn.next().charAt(0)));
+		
+		
+		System.out.println("Price");
+		newCar.setPrice(scn.nextFloat());
+		
+		stock.add(newCar);
+		System.out.println("Car ADDEDD");
+			
+		
+	}
+	
+	private void listCars() {
+		
+		for (Car inStock: stock ) {
+			System.out.println(inStock.manufacturer);
+			
+		}
+	}
+	private void menuChoice() {
+		
+		Scanner scanner = new Scanner(System.in);
 	        
-	       
 	        int choice;
 	        
 	        do {
@@ -135,14 +185,20 @@ public class CarShop {
 	            System.out.println("5. Car with lowest price");
 	            System.out.println("6. Exit");
 	            System.out.print("Your choice: ");
+	           
+	            
+	            
 	            choice = scanner.nextInt();
+	            
 	            
 	            switch (choice) {
 	                case 1:
 	                    System.out.println("You chose option 1.");
+	                    vertu.addCarToStock(scanner);
 	                    break;
 	                case 2:
 	                    System.out.println("You chose option 2.");
+	                    vertu.listCars();
 	                    break;
 	                case 3:
 	                    System.out.println("You chose option 3.");
@@ -164,15 +220,17 @@ public class CarShop {
 	            System.out.println(); // Print blank line for readability
         	} while (choice != 6);
 	        
-	        System.out.println("BYE!");
 	        scanner.close();
+	        
+	        System.out.println("BYE!");
+	        
 	}
 		
 	public static void main(String[] args) {
 		
-		CarShop vertu = new CarShop();
 		
-		vertu.showMenu();
+		
+		vertu.menuChoice();
 		
 
 	}
