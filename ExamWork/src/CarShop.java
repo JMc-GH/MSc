@@ -16,7 +16,7 @@ public class CarShop {
 	 * 
 	 */
 	
-	private static CarShop vertu = new CarShop();
+	private static CarShop vertu = new CarShop(true);
 	private  ArrayList<Car> stock = new ArrayList<Car>();
 	private  HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
 	
@@ -30,6 +30,19 @@ public class CarShop {
 		private CarGrade grade;
 		private float price;
 		
+		public Car(int iD, String manufacturer, String model, short year, int mileage, String engineSize,
+				CarShop.CarGrade grade, float price) {
+			super();
+			ID = iD;
+			this.manufacturer = manufacturer;
+			this.model = model;
+			this.year = year;
+			this.mileage = mileage;
+			this.engineSize = engineSize;
+			this.grade = grade;
+			this.price = price;
+		}
+
 		public Car(int ID) {
 			this.ID = ID;
 		}
@@ -111,13 +124,28 @@ public class CarShop {
 
 	}
 	
-	public CarShop() {
-		
+	
+	private void populateGrades() {
 		ourGrades.put('A', new CarGrade(1, 'A', "Excellent", "Very slightly used, virtually as good as new."));
 		ourGrades.put('B', new CarGrade(2, 'B', "Good", "Good condition but with visible flaws."));
 		ourGrades.put('C', new CarGrade(3, 'C', "Average", "Average condition, with minor damage."));
 		ourGrades.put('D', new CarGrade(4, 'D', "Poor", "Poor condition with significant damage, but the car is functional."));
 		
+	}
+	
+	public CarShop(boolean testData) {
+		
+		populateGrades();
+		
+		if (testData) {
+			stock.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, "1.3L", ourGrades.get('A'), 5550.50F));
+			stock.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, "1.8L", ourGrades.get('A'), 8450.00F));
+			stock.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, "1.5L", ourGrades.get('B'), 12500.00F));
+			stock.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, "1.0L", ourGrades.get('A'), 6500.50F));
+			stock.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, "1.8L", ourGrades.get('C'), 9999.95F));
+			stock.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, "1.2L", ourGrades.get('B'), 3050.50F));
+		}
+
 	}
 
 
@@ -163,13 +191,19 @@ public class CarShop {
 		
 	}
 	
+	
+	//TODO: write a clever sort for the collecrtions
+	
+	
 	private void listCars() {
 		
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
 		for (Car inStock: stock ) {
-			System.out.println(inStock.manufacturer);
-			
+			System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", inStock.ID, inStock.manufacturer, inStock.model, 
+					inStock.year, inStock.mileage, inStock.engineSize, inStock.grade.condition, inStock.price);
 		}
 	}
+	
 	private void menuChoice() {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -226,9 +260,11 @@ public class CarShop {
 	        
 	}
 		
+
 	public static void main(String[] args) {
 		
 		
+
 		
 		vertu.menuChoice();
 		
