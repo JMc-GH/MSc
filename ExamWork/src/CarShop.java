@@ -134,6 +134,7 @@ public class CarShop {
 			
 		}
 	}
+	
 	private class CarGrade {
 		
 		private int ID;
@@ -250,15 +251,7 @@ public class CarShop {
 	 */
 
 	
-	private void printCarDetails(Car toPrint) {
-		System.out.print("\033[1m");
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
-		System.out.print("\033[0m");
-		
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
-				toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
-		
-	}
+
 	
 	/**
 	*
@@ -336,22 +329,34 @@ public static void main(String[] args) {
 	
 	
 	inStock.populateTestData();
-	vertu.listCars(inStock);
+	//vertu.listCars(inStock);
+	vertu.printCarDetails(inStock.getByID(2));
 	
 }
 
-private void listCars(CarStock toList) {
+private void printHeader() {
 	
 	System.out.print("\033[1m");
 	System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
 	System.out.print("\033[0m");
 	
-
-	for (Car c: toList ) {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", c.ID, c.manufacturer, c.model, 
-				c.year, c.mileage, c.engineSize, c.grade.condition, c.price);
-	}
 }
 
+private void listCars(CarStock toList) {
+	
+
+	printHeader();
+	
+	for (Car c: toList ) printCarDetails(c);
+	
+}
+
+private void printCarDetails(Car toPrint) {
+	
+	
+	System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
+			toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
+	
+}
 
 }
