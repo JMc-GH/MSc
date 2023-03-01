@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class CarShop {
 
 	
-	
 	private class Car {
 
 		private int ID;
