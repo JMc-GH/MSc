@@ -98,6 +98,7 @@ public class CarShop {
 		
 	}
 	private class CarStock extends ArrayList<Car> {
+		// TODO: override add with generating ID
 		
 		private static final long serialVersionUID = 1L;
 		private HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
