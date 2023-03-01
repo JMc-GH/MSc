@@ -102,7 +102,9 @@ public class CarShop {
 		
 		private static final long serialVersionUID = 1L;
 		private HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
-
+		//TODO: override add method to generate ID if it's not given
+		
+		
 		public CarStock() {
 			//constructor sets up car grade types for this dealer
 			ourGrades.put('A', new CarGrade(1, 'A', "Condition A", "Description A"));
