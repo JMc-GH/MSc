@@ -1,8 +1,21 @@
+/*
+ * 
+ */
 package Algorithms;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Recursion.
+ */
 public class Recursion {
 
 
+	/**
+	 * Checks if is palindrome.
+	 *
+	 * @param input the input
+	 * @return true, if is palindrome
+	 */
 	public static boolean isPalindrome(String input) {
 		
 		//base case
@@ -21,7 +34,13 @@ public class Recursion {
 		
 	}
 	
-	
+	/**
+	 * Convert binary.
+	 *
+	 * @param input the input
+	 * @param result the result
+	 * @return the string
+	 */
 	public static String convertBinary(int input, String result) {
 		
 		//base case
@@ -37,6 +56,11 @@ public class Recursion {
 		return convertBinary(input /2, result);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 

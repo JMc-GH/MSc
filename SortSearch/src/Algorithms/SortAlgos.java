@@ -1,21 +1,42 @@
 package Algorithms;
+// TODO: Auto-generated Javadoc
+
+/**
+ * The Class SortAlgos.
+ */
 public class SortAlgos {
 
 
 	
+	/** The a. */
 	private Integer[] A = { 0, 5,5,5,5,5,5,5,5,5};
 	
 	
+	/**
+	 * Instantiates a new sort algos.
+	 *
+	 * @param sortArray the sort array
+	 */
 	public SortAlgos(Integer[] sortArray) {
 		A = sortArray;
 	}
 	
+	/**
+	 * Instantiates a new sort algos.
+	 */
 	public SortAlgos() {
 		
 	}
 	
 
 	
+	/**
+	 * Merge.
+	 *
+	 * @param p the p
+	 * @param q the q
+	 * @param r the r
+	 */
 	// MERGE SORT
 	private void merge(int p, int q, int r) {
 		
@@ -55,6 +76,12 @@ public class SortAlgos {
 	}
 	
 	
+	/**
+	 * Merge sort.
+	 *
+	 * @param p the p
+	 * @param r the r
+	 */
 	public void mergeSort(int p, int r) {
 		if (p < r) {
 			int q = ((p+r)/2);
@@ -67,6 +94,12 @@ public class SortAlgos {
 	}
 	
 	
+	/**
+	 * Heapify.
+	 *
+	 * @param current the current
+	 * @param heapSize the heap size
+	 */
 	// HEAPSORT
 	private void heapify(int current, int heapSize) {
 		
@@ -102,6 +135,9 @@ public class SortAlgos {
 	}
 
 	
+	/**
+	 * Builds the max heap.
+	 */
 	public void buildMaxHeap() {
 		for (int i=((A.length-1)/2);i > 0;i--) {
 			heapify(i,A.length);
@@ -109,6 +145,9 @@ public class SortAlgos {
 	}
 	
 	
+	/**
+	 * Heap sort.
+	 */
 	public void heapSort() {
 		
 		for (int i=A.length-1;i > 1;i--) {
@@ -121,6 +160,12 @@ public class SortAlgos {
 	}
 	
 	
+	/**
+	 * Quick sort.
+	 *
+	 * @param p the p
+	 * @param r the r
+	 */
 	// QUICKSORT
 	public void quickSort(int p, int r) {
 		
@@ -134,6 +179,13 @@ public class SortAlgos {
 		}
 	}
 	
+	/**
+	 * Partition.
+	 *
+	 * @param p the p
+	 * @param r the r
+	 * @return the int
+	 */
 	private int partition(int p, int r) {
 		
 		int x = A[r];			        //contents of last element (pivotpoint)
@@ -149,6 +201,12 @@ public class SortAlgos {
 	}
 	
 	
+	/**
+	 * Swap element.
+	 *
+	 * @param first the first
+	 * @param second the second
+	 */
 	// HELPERS
 	private void swapElement(int first, int second) {
 		int temp1 = A[first];
@@ -156,10 +214,22 @@ public class SortAlgos {
 		A[second] = temp1;
 	}
 	
+	/**
+	 * Left.
+	 *
+	 * @param i the i
+	 * @return the int
+	 */
 	private int left(int i) {
 		return i * 2;
 	}
 	
+	/**
+	 * Right.
+	 *
+	 * @param i the i
+	 * @return the int
+	 */
 	private int right(int i) {
 		return (i *2 ) + 1;
 	}
@@ -167,6 +237,11 @@ public class SortAlgos {
 	
 
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	// MAIN
 	public static void main(String[] args) {
 		
