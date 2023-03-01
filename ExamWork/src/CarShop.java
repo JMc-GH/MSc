@@ -106,11 +106,33 @@ public class CarShop {
 		public CarStock() {
 			//constructor sets up car grade types for this dealer
 			ourGrades.put('A', new CarGrade(1, 'A', "Condition A", "Description A"));
-			ourGrades.put('B', new CarGrade(1, 'B', "Condition A", "Description A"));
-			ourGrades.put('C', new CarGrade(1, 'C', "Condition A", "Description A"));
-			ourGrades.put('D', new CarGrade(1, 'D', "Condition A", "Description A"));
-			ourGrades.put('E', new CarGrade(1, 'E', "Condition A", "Description A"));
+			ourGrades.put('B', new CarGrade(1, 'B', "Condition B", "Description A"));
+			ourGrades.put('C', new CarGrade(1, 'C', "Condition C", "Description A"));
+			ourGrades.put('D', new CarGrade(1, 'D', "Condition D", "Description A"));
+			ourGrades.put('E', new CarGrade(1, 'E', "Condition E", "Description A"));
 			
+		}
+
+		
+		public void populateTestData () {
+			
+			this.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, "1.3L", ourGrades.get('A'), 5550.50F));
+			this.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, "1.8L", ourGrades.get('A'), 8450.00F));
+			this.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, "1.5L", ourGrades.get('B'), 12500.00F));
+			this.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, "1.0L", ourGrades.get('A'), 6500.50F));
+			this.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, "1.8L", ourGrades.get('C'), 9999.95F));
+			this.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, "1.2L", ourGrades.get('B'), 3050.50F));
+			
+		}
+		
+		public void sortByModel() {
+			
+	       Collections.sort(this, new Comparator<Car>() {
+	    	   @Override
+	            public int compare(Car c1, Car c2) {
+	                return c1.model.compareTo(c2.model);
+	            }
+	        });
 		}
 		public Car getByID(int iD) {
 			
@@ -123,15 +145,36 @@ public class CarShop {
 			return null;
 		}
 		
-		public void populateTestData () {
+		private void sortByPrice() {
 			
-			this.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, "1.3L", ourGrades.get('A'), 5550.50F));
-			this.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, "1.8L", ourGrades.get('A'), 8450.00F));
-			this.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, "1.5L", ourGrades.get('B'), 12500.00F));
-			this.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, "1.0L", ourGrades.get('A'), 6500.50F));
-			this.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, "1.8L", ourGrades.get('C'), 9999.95F));
-			this.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, "1.2L", ourGrades.get('B'), 3050.50F));
+		       Collections.sort(this, new Comparator<Car>() {
+		            public int compare(Car c1, Car c2) {
+		                return Float.compare(c1.getPrice(), c2.getPrice());
+		            }
+		        });
+		       
+		}
+		
+		private Car getLowestMilage() {
 			
+				this.sortByMileage();
+		
+		       return this.get(0);
+		}
+		
+		private Car getLowestPrice() {
+			
+			this.sortByPrice();
+			return this.get(0);
+			
+		}
+		
+		private void sortByMileage() {
+		       Collections.sort(this, new Comparator<Car>() {
+		            public int compare(Car c1, Car c2) {
+		                return Integer.compare(c1.getMileage(), c2.getMileage());
+		            }
+		        });
 		}
 	}
 	
@@ -167,14 +210,12 @@ public class CarShop {
 	}
 	
 
-
-
-	private void addCarToStock(Scanner scn) {
+	private Car addCarToStock(Scanner scn) {
 		
 		// TODO:  drop down lists for selections as validation
 		
 		
-		Car newCar = new Car(1);
+		Car newCar = new Car(1); //TODO: Hardcoded ID
 
 		
 		System.out.println("ADD NEW CAR TO STOCK");
@@ -210,58 +251,7 @@ public class CarShop {
 			
 		
 	}
-	
-	private void sortCarsbyModel() {
-		
-	       Collections.sort(stock, new Comparator<Car>() {
-	    	   @Override
-	            public int compare(Car c1, Car c2) {
-	                return c1.getModel().compareTo(c2.getModel());
-	            }
-	        });
-	       
-	}
-	
-	private Car lowestMilage() {
-		
-	       Collections.sort(stock, new Comparator<Car>() {
-	            public int compare(Car c1, Car c2) {
-	                return Integer.compare(c1.getMileage(), c2.getMileage());
-	            }
-	        });
-	       
-	       return stock.get(0);
-	}
-	private void sortCarsbyPrice() {
-		
-	       Collections.sort(stock, new Comparator<Car>() {
-	            public int compare(Car c1, Car c2) {
-	                return Float.compare(c1.getPrice(), c2.getPrice());
-	            }
-	        });
-	       
-	}
-	
-	/**
-	 * Prints a formatted list of cars in stock to the console.
-	 * The list includes the ID, manufacturer, model, year, mileage, engine size, grade, and price of each car.
-	 * The title line is formatted in bold text using ANSI escape codes.
-	 * 
-	 * @throws NullPointerException if the stock is null
-	 */
 
-	
-
-	
-	/**
-	*
-	* This method displays a menu of options to the user and allows them to choose an option.
-	* Depending on the user's choice, the method either adds a new car to the stock, lists the cars in alphabetical order,
-	* lists the cars in order of increasing price, displays the car with the lowest mileage, or displays the car with the lowest price.
-	* The method loops until the user chooses to exit.
-	* 
-	* @throws InputMismatchException if the user inputs a non-integer value
-	*/
 	private void menuChoice() {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -328,9 +318,18 @@ public static void main(String[] args) {
 	CarStock inStock = new CarShop().new CarStock();
 	
 	
+	
 	inStock.populateTestData();
 	//vertu.listCars(inStock);
-	vertu.printCarDetails(inStock.getByID(2));
+	//inStock.sortByModel();
+	//vertu.listCars(inStock);
+	//inStock.sortByPrice();
+	vertu.listCars(inStock);
+	vertu.printCarDetails(inStock.getByID(3),true);
+	
+	//vertu.printCarDetails(inStock.lowestMilage());
+	
+	
 	
 }
 
@@ -347,16 +346,22 @@ private void listCars(CarStock toList) {
 
 	printHeader();
 	
-	for (Car c: toList ) printCarDetails(c);
+	for (Car c: toList ) printCarDetails(c,false);
 	
 }
 
-private void printCarDetails(Car toPrint) {
+private void printCarDetails(Car toPrint, boolean printConditionDescription) {
 	
 	
-	System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
+	
+	if (printConditionDescription) {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
 			toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
-	
+	} else {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
+				toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.grade, toPrint.price);
+	}
+
 }
 
 }
