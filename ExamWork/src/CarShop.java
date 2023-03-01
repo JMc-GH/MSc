@@ -9,25 +9,12 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
-/**
- * 
- */
-
-
 public class CarShop {
 
-	private static CarShop vertu = new CarShop(true);
-	private  ArrayList<Car> stock = new ArrayList<Car>();
-	private  HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
 	
 	
-	/**
-	 * Represents a car object with an ID, manufacturer, model, year, mileage, engine size, grade, and price.
-	 * The car object is immutable after creation, and its attributes can be accessed using getter methods.
-	 * 
-	 * @author John McEwan
-	 */
 	private class Car {
+
 		private int ID;
 		private String manufacturer;
 		private String model;
@@ -111,7 +98,42 @@ public class CarShop {
 		
 		
 	}
-	
+	private class CarStock extends ArrayList<Car> {
+		
+		private static final long serialVersionUID = 1L;
+		private HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
+
+		public CarStock() {
+			//constructor sets up car grade types for this dealer
+			ourGrades.put('A', new CarGrade(1, 'A', "Condition A", "Description A"));
+			ourGrades.put('B', new CarGrade(1, 'B', "Condition A", "Description A"));
+			ourGrades.put('C', new CarGrade(1, 'C', "Condition A", "Description A"));
+			ourGrades.put('D', new CarGrade(1, 'D', "Condition A", "Description A"));
+			ourGrades.put('E', new CarGrade(1, 'E', "Condition A", "Description A"));
+			
+		}
+		public Car getByID(int iD) {
+			
+			for (Car c : this) {
+				if (c.ID == iD) {
+					return c;
+				}
+			}
+			
+			return null;
+		}
+		
+		public void populateTestData () {
+			
+			this.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, "1.3L", ourGrades.get('A'), 5550.50F));
+			this.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, "1.8L", ourGrades.get('A'), 8450.00F));
+			this.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, "1.5L", ourGrades.get('B'), 12500.00F));
+			this.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, "1.0L", ourGrades.get('A'), 6500.50F));
+			this.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, "1.8L", ourGrades.get('C'), 9999.95F));
+			this.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, "1.2L", ourGrades.get('B'), 3050.50F));
+			
+		}
+	}
 	private class CarGrade {
 		
 		private int ID;
@@ -143,40 +165,9 @@ public class CarShop {
 
 	}
 	
-	
-	private void populateGrades() {
-		ourGrades.put('A', new CarGrade(1, 'A', "Excellent", "Very slightly used, virtually as good as new."));
-		ourGrades.put('B', new CarGrade(2, 'B', "Good", "Good condition but with visible flaws."));
-		ourGrades.put('C', new CarGrade(3, 'C', "Average", "Average condition, with minor damage."));
-		ourGrades.put('D', new CarGrade(4, 'D', "Poor", "Poor condition with significant damage, but the car is functional."));
-		
-	}
-	
-	public CarShop(boolean testData) {
-		
-		populateGrades();
-		
-		if (testData) {
-			stock.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, "1.3L", ourGrades.get('A'), 5550.50F));
-			stock.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, "1.8L", ourGrades.get('A'), 8450.00F));
-			stock.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, "1.5L", ourGrades.get('B'), 12500.00F));
-			stock.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, "1.0L", ourGrades.get('A'), 6500.50F));
-			stock.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, "1.8L", ourGrades.get('C'), 9999.95F));
-			stock.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, "1.2L", ourGrades.get('B'), 3050.50F));
-		}
 
-	}
 
-	/**
-	*
-	* Adds a new car to the stock by taking input from the user using a scanner object.
-	*
-	* The user is prompted to enter the manufacturer, model, year, mileage, engine size, grade and price of the car.
-	*
-	* The entered values are then used to create a new Car object which is added to the stock ArrayList.
-	*
-	* @param scn a Scanner object used to take input from the user.
-	*/
+
 	private void addCarToStock(Scanner scn) {
 		
 		// TODO:  drop down lists for selections as validation
@@ -257,17 +248,7 @@ public class CarShop {
 	 * 
 	 * @throws NullPointerException if the stock is null
 	 */
-	private void listCars() {
-		
-		System.out.print("\033[1m");
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
-		System.out.print("\033[0m");
-		
-		for (Car inStock: stock ) {
-			System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", inStock.ID, inStock.manufacturer, inStock.model, 
-					inStock.year, inStock.mileage, inStock.engineSize, inStock.grade.condition, inStock.price);
-		}
-	}
+
 	
 	private void printCarDetails(Car toPrint) {
 		System.out.print("\033[1m");
@@ -348,14 +329,29 @@ public class CarShop {
 	        
 	}
 		
+public static void main(String[] args) {
+	
+	CarShop vertu = new CarShop();
+	CarStock inStock = new CarShop().new CarStock();
+	
+	
+	inStock.populateTestData();
+	vertu.listCars(inStock);
+	
+}
 
-	public static void main(String[] args) {
-		
-		vertu.listCars();
-		vertu.sortCarsbyPrice();
-		vertu.listCars();
-		vertu.printCarDetails(vertu.stock.get(0));
-		
+private void listCars(CarStock toList) {
+	
+	System.out.print("\033[1m");
+	System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
+	System.out.print("\033[0m");
+	
+
+	for (Car c: toList ) {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", c.ID, c.manufacturer, c.model, 
+				c.year, c.mileage, c.engineSize, c.grade.condition, c.price);
 	}
+}
+
 
 }
