@@ -204,53 +204,8 @@ public class CarShop {
 			return description;
 		}
 
-
-
 	}
 	
-
-	private Car addCarToStock(Scanner scn) {
-		
-		// TODO:  drop down lists for selections as validation
-		
-		
-		Car newCar = new Car(1); //TODO: Hardcoded ID
-
-		
-		System.out.println("ADD NEW CAR TO STOCK");
-		System.out.println("====================\n");
-		
-		System.out.println("Manufacturer:");
-		newCar.setManufacturer(scn.next());
-		
-		
-		System.out.println("Model:");
-		newCar.setModel(scn.next());
-		
-		System.out.println("Year:");
-		newCar.setYear(scn.nextShort());
-		
-		System.err.println("Mileage:");
-		newCar.setMileage(scn.nextInt());
-		
-		System.out.println("Engine Size");
-		newCar.setEngineSize(scn.next());
-		
-		
-		System.out.println("Grade (A,B,C,D,E):");
-		
-		newCar.setGrade(ourGrades.get(scn.next().charAt(0)));
-		
-		
-		System.out.println("Price");
-		newCar.setPrice(scn.nextFloat());
-		
-		stock.add(newCar);
-		System.out.println("Car ADDEDD");
-			
-		
-	}
-
 	private void menuChoice() {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -277,11 +232,9 @@ public class CarShop {
 	            switch (choice) {
 	                case 1:
 	                    System.out.println("You chose option 1.");
-	                    vertu.addCarToStock(scanner);
 	                    break;
 	                case 2:
 	                    System.out.println("You chose option 2.");
-	                    vertu.listCars();
 	                    break;
 	                case 3:
 	                    System.out.println("You chose option 3.");
@@ -310,9 +263,40 @@ public class CarShop {
 	        System.out.println("BYE!");
 	        
 	}
-		
-public static void main(String[] args) {
+
+	private void printHeader() {
 	
+	System.out.print("\033[1m");
+	System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
+	System.out.print("\033[0m");
+	
+}
+
+	private void listCars(CarStock toList) {
+	
+
+	printHeader();
+	
+	for (Car c: toList ) printCarDetails(c,false);
+	
+}
+	
+	private void printCarDetails(Car toPrint, boolean printConditionDescription) {
+	
+	
+	
+	if (printConditionDescription) {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
+			toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
+	} else {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
+				toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.grade, toPrint.price);
+	}
+
+}
+
+	public static void main(String[] args) {
+		
 	CarShop vertu = new CarShop();
 	CarStock inStock = new CarShop().new CarStock();
 	
@@ -331,36 +315,4 @@ public static void main(String[] args) {
 	
 	
 }
-
-private void printHeader() {
-	
-	System.out.print("\033[1m");
-	System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", "ID", "Manufacturer", "Model", "Year", "Mileage", "Engine", "Grade", "Price");
-	System.out.print("\033[0m");
-	
-}
-
-private void listCars(CarStock toList) {
-	
-
-	printHeader();
-	
-	for (Car c: toList ) printCarDetails(c,false);
-	
-}
-
-private void printCarDetails(Car toPrint, boolean printConditionDescription) {
-	
-	
-	
-	if (printConditionDescription) {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
-			toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
-	} else {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
-				toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.grade, toPrint.price);
-	}
-
-}
-
 }
