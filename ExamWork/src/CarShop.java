@@ -133,8 +133,18 @@ public class CarShop {
 		public int getMileage() {
 			return mileage;
 		}
-		public void setMileage(int mileage) {
-			this.mileage = mileage;
+		public void setMileage(String mileage) throws IllegalArgumentException{
+			
+			int setMileage;
+			
+			// check that it's a number
+			setMileage = Integer.parseInt(mileage);
+			
+			// check that it's within a reasonable range
+			if (setMileage < 0) throw new IllegalArgumentException("Must be a positive number");
+	
+			this.mileage = setMileage;
+			
 		}
 		public String getEngineSize() {
 			return engineSize;
@@ -369,6 +379,7 @@ public class CarShop {
 				newCar.setYear(scn.next());
 				
 				System.out.println("Enter Mileage:");
+				newCar.setMileage(scn.next());
 				System.out.println("Enter Engine:");
 				System.out.println("Etner Grade (A,B,C,D,E):");
 				System.out.println("Enter Price:");
