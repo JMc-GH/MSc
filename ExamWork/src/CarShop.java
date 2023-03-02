@@ -11,6 +11,10 @@ import java.util.Scanner;
 
 public class CarShop {
 
+	
+	static CarShop vertu = new CarShop();
+	static CarStock inStock = new CarShop().new CarStock();
+	
 	private class mfrSummary {
 
 		private int id;
@@ -163,6 +167,15 @@ public class CarShop {
 	            }
 	        });
 		}
+		
+		private void sortByManufacturer() {
+		       Collections.sort(this, new Comparator<Car>() {
+		    	   @Override
+		            public int compare(Car c1, Car c2) {
+		                return c1.manufacturer.compareTo(c2.manufacturer);
+		            }
+		        });
+		}
 		public Car getByID(int iD) {
 			
 			for (Car c : this) {
@@ -265,21 +278,30 @@ public class CarShop {
 	                    break;
 	                case 2:
 	                    System.out.println("You chose option 2.");
+	                    inStock.sortByManufacturer();
+	                    vertu.listCars(inStock);
 	                    break;
 	                case 3:
 	                    System.out.println("You chose option 3.");
-
+	                    inStock.sortByPrice();
+	                    vertu.listCars(inStock);
 	                    break;
 	                case 4:
 	                    System.out.println("You chose option 4.");
+	                    vertu.printCarDetails(inStock.getLowestMilage(), false);
 	                    break;
 	                case 5:
 	                    System.out.println("You chose option 5.");
+	                    vertu.printCarDetails(inStock.getLowestPrice(), false);
 	                    break;
 	                case 6:
+	                	
+	                	System.out.println("Please enter the ID:");
+	                	int id = scanner.nextInt();
+	                	vertu.printCarDetails(inStock.get(id), true);
 	                    break;
 	                case 7:
-	                	break;
+	                	vertu.manufacturerReport(inStock);
 	                default:
 	                    System.out.println("Invalid Choice");
 	                    break;
@@ -359,12 +381,14 @@ public class CarShop {
 
 	public static void main(String[] args) {
 		
-	CarShop vertu = new CarShop();
-	CarStock inStock = new CarShop().new CarStock();
+
 	
 	
 	
 	inStock.populateTestData();
+	vertu.menuChoice();
+	
+	
 	//vertu.listCars(inStock);
 	//inStock.sortByModel();
 	//vertu.listCars(inStock);
@@ -373,7 +397,7 @@ public class CarShop {
 	//vertu.printCarDetails(inStock.getByID(3),true);
 	
 	
-	vertu.manufacturerReport(inStock);
+	//vertu.manufacturerReport(inStock);
 	
 	//vertu.printCarDetails(inStock.lowestMilage());
 	
