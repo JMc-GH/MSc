@@ -54,12 +54,12 @@ public class CarShop {
 		private String model;
 		private short year;
 		private int mileage;
-		private String engineSize;
+		private float engineSize;
 		private CarGrade grade;
 		private float price;
 		
 
-		public Car(int iD, String manufacturer, String model, short year, int mileage, String engineSize,
+		public Car(int iD, String manufacturer, String model, short year, int mileage, float engineSize,
 				CarShop.CarGrade grade, float price) {
 			super();
 			ID = iD;
@@ -146,15 +146,21 @@ public class CarShop {
 			this.mileage = setMileage;
 			
 		}
-		public String getEngineSize() {
-			// TODO: Convert to cc for storage
-			
-			
+		
+		public float getEngineSize() {	
 			return engineSize;
 		}
-		public void setEngineSize(String engineSize) {
-			this.engineSize = engineSize;
+		
+		public void setEngineSize(String engineSize) throws IllegalArgumentException {
+			
+			// check the format
+			if (!engineSize.matches("\\d{1,2}\\.\\d{1,2}L")) throw new IllegalArgumentException("Must be in the format 9.99L"); 
+			
+			float newEngineSize = Float.parseFloat(engineSize.substring(0, engineSize.length() - 1));
+			
+			this.engineSize = newEngineSize;
 		}
+		
 		public CarGrade getGrade() {
 			return grade;
 		}
@@ -191,12 +197,12 @@ public class CarShop {
 		
 		public void populateTestData () {
 			
-			this.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, "1.3L", ourGrades.get('A'), 5550.50F));
-			this.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, "1.8L", ourGrades.get('A'), 8450.00F));
-			this.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, "1.5L", ourGrades.get('B'), 12500.00F));
-			this.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, "1.0L", ourGrades.get('A'), 6500.50F));
-			this.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, "1.8L", ourGrades.get('C'), 9999.95F));
-			this.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, "1.2L", ourGrades.get('B'), 3050.50F));
+			this.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, 1.3F, ourGrades.get('A'), 5550.50F));
+			this.add(new Car(2, "Toyota", "Prius", (short) 2012, 8800, 1.8F, ourGrades.get('A'), 8450.00F));
+			this.add(new Car(3, "Volkswagon", "Golf", (short) 2016, 74550, 1.5F, ourGrades.get('B'), 12500.00F));
+			this.add(new Car(4, "Toyota", "Yaris", (short) 2011, 110100, 1.0F, ourGrades.get('A'), 6500.50F));
+			this.add(new Car(5, "Toyota", "Prius", (short) 2015, 52300, 1.8F, ourGrades.get('C'), 9999.95F));
+			this.add(new Car(6, "Volkswagon", "Polo", (short) 2012, 140820, 1.2F, ourGrades.get('B'), 3050.50F));
 			
 		}
 		
@@ -383,7 +389,10 @@ public class CarShop {
 				
 				System.out.println("Enter Mileage:");
 				newCar.setMileage(scn.next());
+				
 				System.out.println("Enter Engine:");
+				newCar.setEngineSize(scn.next());
+				
 				System.out.println("Etner Grade (A,B,C,D,E):");
 				System.out.println("Enter Price:");
 
