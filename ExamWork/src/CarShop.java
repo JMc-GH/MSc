@@ -147,6 +147,9 @@ public class CarShop {
 			
 		}
 		public String getEngineSize() {
+			// TODO: Convert to cc for storage
+			
+			
 			return engineSize;
 		}
 		public void setEngineSize(String engineSize) {
