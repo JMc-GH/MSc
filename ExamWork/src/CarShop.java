@@ -164,14 +164,31 @@ public class CarShop {
 		public CarGrade getGrade() {
 			return grade;
 		}
-		public void setGrade(CarGrade grade) {
-			this.grade = grade;
+		public void setGrade(String grade) {
+			
+			char newGrade = 0;
+			
+			if (grade.length() != 1) throw new IllegalArgumentException("Must be a single char");
+			//check its a single char
+			
+			newGrade = grade.charAt(0);
+			
+			this.grade = inStock.ourGrades.get(newGrade);
 		}
+		
 		public float getPrice() {
 			return price;
 		}
-		public void setPrice(float price) {
-			this.price = price;
+		public void setPrice(String price) {
+			
+			
+			String strippedFigure = price.replaceAll("[\\p{Sc},]", "");
+			float newPrice = Float.parseFloat(strippedFigure);
+
+			
+			
+
+			this.price = newPrice;
 		} 
 		
 		
@@ -381,8 +398,11 @@ public class CarShop {
 				System.out.println("Enter ID:");
 				newCar.setID(scn.next());
 				
-				System.err.println("Enter Make:");
+				System.out.println("Enter Maufacturer:");
 				newCar.setManufacturer(scn.next());
+				
+				System.out.println("Enter Model:");
+				newCar.setModel(scn.next());
 				
 				System.out.println("Enter Year:");
 				newCar.setYear(scn.next());
@@ -393,8 +413,11 @@ public class CarShop {
 				System.out.println("Enter Engine:");
 				newCar.setEngineSize(scn.next());
 				
-				System.out.println("Etner Grade (A,B,C,D,E):");
+				System.out.println("Enter Grade (A,B,C,D,E):");
+				newCar.setGrade(scn.next());
+				
 				System.out.println("Enter Price:");
+				newCar.setPrice(scn.next());
 
 				inStock.add(newCar);
 				
@@ -434,8 +457,8 @@ public class CarShop {
 			
 			if (!summaryReport.containsKey(c.getManufacturer())) {
 				mfrSummary s = new mfrSummary();
-				s.vehCount = 1;
-				s.id = id;
+				s.setVehCount(1);
+				s.setId(id);
 				id++;
 				s.setTotalValue(c.getPrice());
 				summaryReport.put(c.getManufacturer(), s);
@@ -451,7 +474,7 @@ public class CarShop {
 		System.out.print("\033[0m");
 		
 		summaryReport.forEach((key, mfr) -> {
-			System.out.printf("%-3s%-15s%-6s%-12s\n", mfr.id, key, mfr.vehCount, mfr.totalValue);
+			System.out.printf("%-3s%-15s%-6s%-12s\n", mfr.getId(), key, mfr.getVehCount(), mfr.getTotalValue());
 		});
 		
 		
