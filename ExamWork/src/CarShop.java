@@ -3,10 +3,12 @@
 // TODO: Search for car
 // TODO: Manufacturer summary report
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CarShop {
@@ -46,6 +48,8 @@ public class CarShop {
 	private class Car {
 
 		private int ID;
+		
+
 		private String manufacturer;
 		private String model;
 		private short year;
@@ -54,18 +58,7 @@ public class CarShop {
 		private CarGrade grade;
 		private float price;
 		
-		  /**
-	     * Creates a new car object with the specified attributes.
-	     * 
-	     * @param ID the ID of the car
-	     * @param manufacturer the manufacturer of the car
-	     * @param model the model of the car
-	     * @param year the year of the car
-	     * @param mileage the mileage of the car
-	     * @param engineSize the engine size of the car
-	     * @param grade the grade of the car
-	     * @param price the price of the car
-	     */
+
 		public Car(int iD, String manufacturer, String model, short year, int mileage, String engineSize,
 				CarShop.CarGrade grade, float price) {
 			super();
@@ -79,28 +72,64 @@ public class CarShop {
 			this.price = price;
 		}
 
-		public Car(int ID) {
-			this.ID = ID;
+		public Car() {
+			// TODO: Check that all the fields have been set...
 		}
 		
+		
+		public int getID() {
+			return ID;
+		}
+
+		public void setID(String iD) throws IllegalArgumentException {
+			// should be a number
+			// should be unique?
+			int newID;
+			
+			try {
+				ID = Integer.parseInt(iD);
+				
+			} catch (IllegalArgumentException e) {
+				
+			}
+		}
+
+		
 		public String getManufacturer() {
+			// lookup against list of mfrs
+			
 			return manufacturer;
 		}
 		public void setManufacturer(String manufacturer) {
 			this.manufacturer = manufacturer;
 		}
 		public String getModel() {
+			
 			return model;
 		}
 		public void setModel(String model) {
+			// lookup against list of mfrs
 			this.model = model;
 		}
 		public short getYear() {
 			return year;
 		}
-		public void setYear(short year) {
-			this.year = year;
+		public void setYear(String year) throws IllegalArgumentException {
+			
+			short setYear;
+							
+			// check that it's a number
+			setYear = Short.parseShort(year);
+			
+			// check that it's within a reasonable range
+			if (setYear < 1885 || setYear > Year.now().getValue()) {
+				throw new IllegalArgumentException("Year must be between 1885 and " + Year.now().getValue());
+			}
+			
+			this.year = setYear;
+				
 		}
+		
 		public int getMileage() {
 			return mileage;
 		}
@@ -158,6 +187,14 @@ public class CarShop {
 			
 		}
 		
+		
+		public void sortByID () {
+		       Collections.sort(this, new Comparator<Car>() {
+		            public int compare(Car c1, Car c2) {
+		                return Integer.compare(c1.ID, c2.ID);
+		            }
+		        });
+		}
 		public void sortByModel() {
 			
 	       Collections.sort(this, new Comparator<Car>() {
@@ -275,6 +312,7 @@ public class CarShop {
 	            switch (choice) {
 	                case 1:
 	                    System.out.println("You chose option 1.");
+	                    vertu.addCar(scanner);
 	                    break;
 	                case 2:
 	                    System.out.println("You chose option 2.");
@@ -295,7 +333,6 @@ public class CarShop {
 	                    vertu.printCarDetails(inStock.getLowestPrice(), false);
 	                    break;
 	                case 6:
-	                	
 	                	System.out.println("Please enter the ID:");
 	                	int id = scanner.nextInt();
 	                	vertu.printCarDetails(inStock.get(id), true);
@@ -316,6 +353,38 @@ public class CarShop {
 	        
 	}
 
+	private void addCar(Scanner scn) {
+		
+		Car newCar = new Car();
+		
+			
+			try {
+				System.out.println("Enter ID:");
+				newCar.setID(scn.next());
+				
+				System.err.println("Enter Make:");
+				newCar.setManufacturer(scn.next());
+				
+				System.out.println("Enter Year:");
+				newCar.setYear(scn.next());
+				
+				System.out.println("Enter Mileage:");
+				System.out.println("Enter Engine:");
+				System.out.println("Etner Grade (A,B,C,D,E):");
+				System.out.println("Enter Price:");
+
+				inStock.add(newCar);
+				
+			} catch (IllegalArgumentException e) {
+				System.err.println(e.getMessage());
+			}
+			
+		}
+
+		
+		
+		
+	
 	private void printHeader() {
 	
 	System.out.print("\033[1m");
