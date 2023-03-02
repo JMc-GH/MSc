@@ -164,6 +164,7 @@ public class CarShop {
 		public CarGrade getGrade() {
 			return grade;
 		}
+		
 		public void setGrade(String grade) {
 			
 			char newGrade = 0;
@@ -179,14 +180,11 @@ public class CarShop {
 		public float getPrice() {
 			return price;
 		}
+		
 		public void setPrice(String price) {
-			
 			
 			String strippedFigure = price.replaceAll("[\\p{Sc},]", "");
 			float newPrice = Float.parseFloat(strippedFigure);
-
-			
-			
 
 			this.price = newPrice;
 		} 
