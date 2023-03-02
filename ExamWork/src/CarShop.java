@@ -11,6 +11,33 @@ import java.util.Scanner;
 
 public class CarShop {
 
+	private class mfrSummary {
+
+		private int id;
+		private int vehCount;
+		private float totalValue;
+
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public int getVehCount() {
+			return vehCount;
+		}
+		public void setVehCount(int vehCount) {
+			this.vehCount = vehCount;
+		}
+		public float getTotalValue() {
+			return totalValue;
+		}
+		public void setTotalValue(float totalValue) {
+			this.totalValue = totalValue;
+		}
+		
+		
+	}
 	
 	private class Car {
 
@@ -277,12 +304,44 @@ public class CarShop {
 
 	private void listCars(CarStock toList) {
 	
-
 	printHeader();
-	
 	for (Car c: toList ) printCarDetails(c,false);
 	
 }
+	
+	private void manufacturerReport(CarStock stockList) {
+		
+		HashMap<String,mfrSummary> summaryReport = new HashMap<String,mfrSummary>();
+		
+		
+		int id = 0;
+		
+		for (Car c: stockList) {
+			
+			if (!summaryReport.containsKey(c.getManufacturer())) {
+				mfrSummary s = new mfrSummary();
+				s.vehCount = 1;
+				s.id = id;
+				id++;
+				s.setTotalValue(c.getPrice());
+				summaryReport.put(c.getManufacturer(), s);
+				
+			} else {
+				summaryReport.get(c.getManufacturer()).vehCount++;
+				summaryReport.get(c.getManufacturer()).totalValue += c.getPrice();
+			}
+		}
+		
+		System.out.print("\033[1m");
+		System.out.printf("%-3s%-15s%-6s%-12s\n", "ID", "Manufacturer", "Count", "Stock Value");
+		System.out.print("\033[0m");
+		
+		summaryReport.forEach((key, mfr) -> {
+			System.out.printf("%-3s%-15s%-6s%-12s\n", mfr.id, key, mfr.vehCount, mfr.totalValue);
+		});
+		
+		
+	}
 	
 	private void printCarDetails(Car toPrint, boolean printConditionDescription) {
 	
@@ -310,8 +369,11 @@ public class CarShop {
 	//inStock.sortByModel();
 	//vertu.listCars(inStock);
 	//inStock.sortByPrice();
-	vertu.listCars(inStock);
-	vertu.printCarDetails(inStock.getByID(3),true);
+	//vertu.listCars(inStock);
+	//vertu.printCarDetails(inStock.getByID(3),true);
+	
+	
+	vertu.manufacturerReport(inStock);
 	
 	//vertu.printCarDetails(inStock.lowestMilage());
 	
