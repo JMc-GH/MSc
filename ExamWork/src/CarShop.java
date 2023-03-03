@@ -241,14 +241,7 @@ public class CarShop {
 	        });
 		}
 		
-		private void sortByManufacturer() {
-		       Collections.sort(this, new Comparator<Car>() {
-		    	   @Override
-		            public int compare(Car c1, Car c2) {
-		                return c1.manufacturer.compareTo(c2.manufacturer);
-		            }
-		        });
-		}
+
 		public Car getByID(int iD) {
 			
 			for (Car c : this) {
@@ -331,8 +324,8 @@ public class CarShop {
 	        do {
 	            System.out.println("Please choose an option:");
 	            System.out.println("1. Input new car");
-	            System.out.println("2. List cars (Alphabetical Order)");
-	            System.out.println("3. List cars (Lowest To Highest)");
+	            System.out.println("2. Sort By Model (Alphabetical Order)");
+	            System.out.println("3. Sort By Price (Lowest To Highest)");
 	            System.out.println("4. Car with lowest mileage");
 	            System.out.println("5. Car with lowest price");
 	            System.out.println("6. Search by ID");
@@ -352,7 +345,7 @@ public class CarShop {
 	                    break;
 	                case 2:
 	                    System.out.println("You chose option 2.");
-	                    inStock.sortByManufacturer();
+	                    inStock.sortByModel();
 	                    vertu.listCars(inStock);
 	                    break;
 	                case 3:
@@ -438,7 +431,20 @@ public class CarShop {
 	System.out.print("\033[0m");
 	
 }
+	
+	private void printCarDetails(Car toPrint, boolean printConditionDescription) {
+		
+		
+		
+	if (printConditionDescription) {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.getID(), toPrint.getManufacturer(), toPrint.getModel(), 
+			toPrint.getYear(), toPrint.getMileage(), toPrint.getEngineSize(), toPrint.getGrade().getCondition(), toPrint.getPrice());
+	} else {
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.getID(), toPrint.getManufacturer(), toPrint.getModel(), 
+				toPrint.getYear(), toPrint.getMileage(), toPrint.getEngineSize(), toPrint.getGrade().getGrade(), toPrint.getPrice());
+	}
 
+}
 	private void listCars(CarStock toList) {
 	
 	printHeader();
@@ -480,19 +486,7 @@ public class CarShop {
 		
 	}
 	
-	private void printCarDetails(Car toPrint, boolean printConditionDescription) {
-	
-	
-	
-	if (printConditionDescription) {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.getID(), toPrint.getManufacturer(), toPrint.getModel(), 
-			toPrint.getYear(), toPrint.getMileage(), toPrint.getEngineSize(), toPrint.getGrade().getCondition(), toPrint.getPrice());
-	} else {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.getID(), toPrint.getManufacturer(), toPrint.getModel(), 
-				toPrint.getYear(), toPrint.getMileage(), toPrint.getEngineSize(), toPrint.getGrade().getGrade(), toPrint.getPrice());
-	}
 
-}
 
 	public static void main(String[] args) {
 		
