@@ -3,12 +3,13 @@
 // TODO: Search for car
 // TODO: Manufacturer summary report
 
+import java.text.DecimalFormat;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class CarShop {
@@ -73,7 +74,7 @@ public class CarShop {
 		}
 
 		public Car() {
-			// TODO: Check that all the fields have been set...
+	
 		}
 		
 		
@@ -82,16 +83,9 @@ public class CarShop {
 		}
 
 		public void setID(String iD) throws IllegalArgumentException {
-			// should be a number
-			// should be unique?
-			int newID;
 			
-			try {
 				ID = Integer.parseInt(iD);
-				
-			} catch (IllegalArgumentException e) {
-				
-			}
+	
 		}
 
 		
@@ -103,14 +97,16 @@ public class CarShop {
 		public void setManufacturer(String manufacturer) {
 			this.manufacturer = manufacturer;
 		}
+		
+		
 		public String getModel() {
-			
 			return model;
 		}
 		public void setModel(String model) {
 			// lookup against list of mfrs
 			this.model = model;
 		}
+		
 		public short getYear() {
 			return year;
 		}
@@ -127,8 +123,8 @@ public class CarShop {
 			}
 			
 			this.year = setYear;
-				
 		}
+		
 		
 		public int getMileage() {
 			return mileage;
@@ -147,10 +143,13 @@ public class CarShop {
 			
 		}
 		
-		public float getEngineSize() {	
-			return engineSize;
-		}
 		
+		public String getEngineSize() {	
+			
+			String myEngineSize = engineSize + "L";
+			
+			return myEngineSize;
+		}
 		public void setEngineSize(String engineSize) throws IllegalArgumentException {
 			
 			// check the format
@@ -164,7 +163,6 @@ public class CarShop {
 		public CarGrade getGrade() {
 			return grade;
 		}
-		
 		public void setGrade(String grade) {
 			
 			char newGrade = 0;
@@ -177,10 +175,14 @@ public class CarShop {
 			this.grade = inStock.ourGrades.get(newGrade);
 		}
 		
-		public float getPrice() {
-			return price;
-		}
 		
+		public String getPrice() {
+			
+			
+	        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getCurrencyInstance(Locale.UK); 
+	        return formatter.format(this.price); 
+	        
+		}
 		public void setPrice(String price) {
 			
 			String strippedFigure = price.replaceAll("[\\p{Sc},]", "");
@@ -262,7 +264,7 @@ public class CarShop {
 			
 		       Collections.sort(this, new Comparator<Car>() {
 		            public int compare(Car c1, Car c2) {
-		                return Float.compare(c1.getPrice(), c2.getPrice());
+		                return Float.compare(c1.price, c2.price);
 		            }
 		        });
 		       
@@ -369,7 +371,7 @@ public class CarShop {
 	                case 6:
 	                	System.out.println("Please enter the ID:");
 	                	int id = scanner.nextInt();
-	                	vertu.printCarDetails(inStock.get(id), true);
+	                	vertu.printCarDetails(inStock.getByID(id), true);
 	                    break;
 	                case 7:
 	                	vertu.manufacturerReport(inStock);
@@ -458,12 +460,12 @@ public class CarShop {
 				s.setVehCount(1);
 				s.setId(id);
 				id++;
-				s.setTotalValue(c.getPrice());
+				s.setTotalValue(c.price);
 				summaryReport.put(c.getManufacturer(), s);
 				
 			} else {
 				summaryReport.get(c.getManufacturer()).vehCount++;
-				summaryReport.get(c.getManufacturer()).totalValue += c.getPrice();
+				summaryReport.get(c.getManufacturer()).totalValue += c.price;
 			}
 		}
 		
@@ -483,11 +485,11 @@ public class CarShop {
 	
 	
 	if (printConditionDescription) {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
-			toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.condition, toPrint.price);
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.getID(), toPrint.getManufacturer(), toPrint.getModel(), 
+			toPrint.getYear(), toPrint.getMileage(), toPrint.getEngineSize(), toPrint.getGrade().getCondition(), toPrint.getPrice());
 	} else {
-		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.ID, toPrint.manufacturer, toPrint.model, 
-				toPrint.year, toPrint.mileage, toPrint.engineSize, toPrint.grade.grade, toPrint.price);
+		System.out.printf("%-3s%-15s%-12s%-6s%-9s%-7s%-12s%-20s\n", toPrint.getID(), toPrint.getManufacturer(), toPrint.getModel(), 
+				toPrint.getYear(), toPrint.getMileage(), toPrint.getEngineSize(), toPrint.getGrade().getGrade(), toPrint.getPrice());
 	}
 
 }
