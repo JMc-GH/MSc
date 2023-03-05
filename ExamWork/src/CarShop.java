@@ -14,38 +14,90 @@ import java.util.Scanner;
 
 public class CarShop {
 
-	
+	// Create an instance of CarShop class
 	static CarShop vertu = new CarShop();
+	
+	// Create an instance of CarStock class
 	static CarStock inStock = new CarShop().new CarStock();
 	
+	/**
+	 * This class represents a summary of the number of cars available for each manufacturer.
+	 * It has id, vehCount, and totalValue attributes.
+	 * This class has getter and setter methods for id, vehCount, and totalValue attributes.
+	 */
 	private class mfrSummary {
 
+        /**
+         * The unique identifier for the manufacturer summary.
+         */
 		private int id;
+
+        /**
+         * The total number of vehicles produced by the manufacturer.
+         */
 		private int vehCount;
+
+        /**
+         * The total value of all vehicles produced by the manufacturer.
+         */
 		private float totalValue;
 
+        /**
+         * Returns the unique identifier for the manufacturer summary.
+         * @return the unique identifier for the manufacturer summary
+         */
 		public int getId() {
 			return id;
 		}
+
+        /**
+         * Sets the unique identifier for the manufacturer summary.
+         * @param id the unique identifier for the manufacturer summary
+         */
 		public void setId(int id) {
 			this.id = id;
 		}
+
+        /**
+         * Returns the total number of vehicles produced by the manufacturer.
+         * @return the total number of vehicles produced by the manufacturer
+         */
 		public int getVehCount() {
 			return vehCount;
 		}
+
+        /**
+         * Sets the total number of vehicles produced by the manufacturer.
+         * @param vehCount the total number of vehicles produced by the manufacturer
+         */
 		public void setVehCount(int vehCount) {
 			this.vehCount = vehCount;
 		}
+
+        /**
+         * Returns the total value of all vehicles produced by the manufacturer.
+         * @return the total value of all vehicles produced by the manufacturer
+         */
 		public float getTotalValue() {
 			return totalValue;
 		}
+
+        /**
+         * Sets the total value of all vehicles produced by the manufacturer.
+         * @param totalValue the total value of all vehicles produced by the manufacturer
+         */
 		public void setTotalValue(float totalValue) {
 			this.totalValue = totalValue;
 		}
 		
 		
 	}
-	
+	/**
+	 * This class represents a car.
+	 * It has ID, manufacturer, model, year, mileage, engineSize, grade, and price attributes.
+	 * It has two constructors; one with parameters, and one without parameters.
+	 * This class provides methods to set and get the car attributes. 
+	 */
 	private class Car {
 
 		private int ID;
@@ -59,7 +111,19 @@ public class CarShop {
 		private CarGrade grade;
 		private float price;
 		
-
+        /**
+        * 
+        * Constructs a Car object with the specified attributes.
+        * Only used to generate test data as the setters are by-passed (so no validation is performed against inputs)
+        * @param iD the ID of the car
+        * @param manufacturer the manufacturer of the car
+        * @param model the model of the car
+        * @param year the year of the car
+        * @param mileage the mileage of the car
+        * @param engineSize the engine size of the car
+        * @param grade the grade of the car
+        * @param price the price of the car
+        */
 		public Car(int iD, String manufacturer, String model, short year, int mileage, float engineSize,
 				CarShop.CarGrade grade, float price) {
 			super();
@@ -73,43 +137,81 @@ public class CarShop {
 			this.price = price;
 		}
 
-		public Car() {
-	
-		}
+        /**
+        *Constructs a Car object with default attributes.
+        */
+		public Car() {}
 		
-		
+		/**
+		 * Get ID of the car.
+		 * @return ID of the car
+		 */
 		public int getID() {
 			return ID;
 		}
-
+		
+		/**
+		 * Set ID of the car.
+		 * @param iD ID of the car
+		 * @throws IllegalArgumentException when ID is not a valid integer.
+		 */
 		public void setID(String iD) throws IllegalArgumentException {
 			
 				ID = Integer.parseInt(iD);
 	
 		}
 
-		
+		/**
+	     * Get the manufacturer of the car.
+	     * @return manufacturer of the car.
+	     */
 		public String getManufacturer() {
-			// lookup against list of mfrs
+			// TODO: lookup against list of mfrs
 			
 			return manufacturer;
 		}
+
+        /**
+        * Sets the manufacturer of the car.
+        * @param manufacturer the manufacturer of the car
+        */
 		public void setManufacturer(String manufacturer) {
 			this.manufacturer = manufacturer;
 		}
 		
-		
+		/**
+        * Returns the model of the car.
+        * @return the model of the car
+        */
 		public String getModel() {
 			return model;
 		}
+        /**
+        *
+        * Sets the model of the car.
+        * @param model the model of the car
+        */
 		public void setModel(String model) {
 			// lookup against list of mfrs
 			this.model = model;
 		}
 		
+        /**
+        *
+        *Returns the year of the car.
+        * @return the year of the car
+        */
 		public short getYear() {
 			return year;
 		}
+
+        /**
+        *
+        * Sets the year of the car.
+        *
+        * @param year the year of the car
+        * @throws IllegalArgumentException when the year is not within a reasonable range.
+        */
 		public void setYear(String year) throws IllegalArgumentException {
 			
 			short setYear;
@@ -125,10 +227,20 @@ public class CarShop {
 			this.year = setYear;
 		}
 		
-		
+		/**
+        *
+        * Returns the mileage of the car.
+        * @return the mileage of the car
+        */
 		public int getMileage() {
 			return mileage;
 		}
+
+        /**
+        * This method sets the mileage of the car.
+        * @param mileage a String representing the mileage to be set
+        * @throws IllegalArgumentException if the input mileage is not a positive number
+        */
 		public void setMileage(String mileage) throws IllegalArgumentException{
 			
 			int setMileage;
@@ -143,13 +255,22 @@ public class CarShop {
 			
 		}
 		
-		
+		/**
+        * This method gets the engine size of the car.
+        * @return a String representing the engine size of the car
+        */
 		public String getEngineSize() {	
 			
 			String myEngineSize = engineSize + "L";
 			
 			return myEngineSize;
 		}
+
+        /**
+        * This method sets the engine size of the car.
+        * @param engineSize a String representing the engine size to be set in the format 9.99L
+        * @throws IllegalArgumentException if the input engine size is not in the format 9.99L
+        */
 		public void setEngineSize(String engineSize) throws IllegalArgumentException {
 			
 			// check the format
@@ -159,10 +280,19 @@ public class CarShop {
 			
 			this.engineSize = newEngineSize;
 		}
-		
+		/**
+        * This method gets the grade of the car.
+        * @return a CarGrade representing the grade of the car
+        */
 		public CarGrade getGrade() {
 			return grade;
 		}
+
+        /**
+        * This method sets the grade of the car.
+        * @param grade a String representing the grade of the car, must be a single character
+        * @throws IllegalArgumentException if the input grade is not a single character
+        */
 		public void setGrade(String grade) {
 			
 			char newGrade = 0;
@@ -175,7 +305,10 @@ public class CarShop {
 			this.grade = inStock.ourGrades.get(newGrade);
 		}
 		
-		
+		/**
+        * This method gets the price of the car in UK currency format.
+        * @return a String representing the price of the car in UK currency format
+        */
 		public String getPrice() {
 			
 			
@@ -183,6 +316,11 @@ public class CarShop {
 	        return formatter.format(this.price); 
 	        
 		}
+
+        /**
+        * This method sets the price of the car.
+        * @param price a String representing the price of the car in UK currency format, e.g. £10,000.00
+        */
 		public void setPrice(String price) {
 			
 			String strippedFigure = price.replaceAll("[\\p{Sc},]", "");
@@ -193,14 +331,25 @@ public class CarShop {
 		
 		
 	}
+
+	/**
+	 * The CarStock class represents the inventory of cars in the dealership. It
+	 * extends ArrayList and includes a HashMap to store CarGrade objects.
+	 */
 	private class CarStock extends ArrayList<Car> {
 		// TODO: override add with generating ID
 		
+        /** The serial version UID. */
 		private static final long serialVersionUID = 1L;
+
+
+        /** The map of CarGrade objects. */
 		private HashMap<Character,CarGrade> ourGrades = new HashMap<Character,CarGrade>();
 		//TODO: override add method to generate ID if it's not given
 		
-		
+		/**
+		 * Constructs a CarStock object and sets up car grade types for this dealer.
+		 */
 		public CarStock() {
 			//constructor sets up car grade types for this dealer
 			ourGrades.put('A', new CarGrade(1, 'A', "Condition A", "Description A"));
@@ -211,7 +360,11 @@ public class CarShop {
 			
 		}
 
-		
+		/**
+        * Populates the CarList with sample Car objects for testing purposes.
+        * The method adds a new Car object to the list for each of the test data items.
+        * @return void
+        */
 		public void populateTestData () {
 			
 			this.add(new Car(1, "Honda", "Fit", (short) 2013, 200500, 1.3F, ourGrades.get('A'), 5550.50F));
@@ -223,7 +376,9 @@ public class CarShop {
 			
 		}
 		
-		
+		/**
+        * This method sorts the list of cars by their ID numbers in ascending order.
+        */
 		public void sortByID () {
 		       Collections.sort(this, new Comparator<Car>() {
 		            public int compare(Car c1, Car c2) {
@@ -231,6 +386,9 @@ public class CarShop {
 		            }
 		        });
 		}
+        /**
+        * This method sorts the list of cars by their model name in alphabetical order.
+        */
 		public void sortByModel() {
 			
 	       Collections.sort(this, new Comparator<Car>() {
@@ -241,7 +399,11 @@ public class CarShop {
 	        });
 		}
 		
-
+        /**
+        * This method returns a Car object from the list based on the provided ID number.
+        * @param iD the ID number of the Car to be returned
+        * @return the Car object that matches the provided ID number, or null if no match is found
+        */
 		public Car getByID(int iD) {
 			
 			for (Car c : this) {
@@ -253,7 +415,7 @@ public class CarShop {
 			return null;
 		}
 		
-		private void sortByPrice() {
+		public void sortByPrice() {
 			
 		       Collections.sort(this, new Comparator<Car>() {
 		            public int compare(Car c1, Car c2) {
@@ -263,14 +425,14 @@ public class CarShop {
 		       
 		}
 		
-		private Car getLowestMilage() {
+		public Car getLowestMilage() {
 			
 				this.sortByMileage();
 		
 		       return this.get(0);
 		}
 		
-		private Car getLowestPrice() {
+		public Car getLowestPrice() {
 			
 			this.sortByPrice();
 			return this.get(0);
