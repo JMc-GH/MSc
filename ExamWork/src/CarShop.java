@@ -1,7 +1,4 @@
-// TODO: Sanitise user input
-// TODO: Check output
-// TODO: Search for car
-// TODO: Manufacturer summary report
+
 
 import java.text.DecimalFormat;
 import java.time.Year;
@@ -415,6 +412,16 @@ public class CarShop {
 			return null;
 		}
 		
+		/**
+		* Sorts the list of cars by their price in ascending order.
+		* This method uses the Collections.sort() method to sort the current list of cars
+		* by their price. It implements a Comparator<Car> object that compares the price
+		* of each Car instance in the list. The resulting sorted list is in ascending order
+		* based on the price of the cars.
+		* @throws UnsupportedOperationException if the list of cars is not modifiable.
+		* @see Collections#sort(List)
+		* @see Comparator
+		*/
 		public void sortByPrice() {
 			
 		       Collections.sort(this, new Comparator<Car>() {
@@ -425,6 +432,15 @@ public class CarShop {
 		       
 		}
 		
+		/**
+		Returns the Car instance with the lowest mileage in the list.
+		This method uses the sortByMileage() method to sort the current list of cars by their
+		mileage in ascending order, and then returns the Car instance with the lowest mileage
+		(i.e., the first element of the sorted list).
+		@return the Car instance with the lowest mileage in the list.
+		@throws IndexOutOfBoundsException if the list of cars is empty.
+		@see #sortByMileage()
+		*/
 		public Car getLowestMilage() {
 			
 				this.sortByMileage();
@@ -432,6 +448,15 @@ public class CarShop {
 		       return this.get(0);
 		}
 		
+		/**
+		* Returns the Car instance with the lowest price in the list.
+		* This method uses the sortByPrice() method to sort the current list of cars by their
+		* price in ascending order, and then returns the Car instance with the lowest price
+		* (i.e., the first element of the sorted list).
+		* @return the Car instance with the lowest price in the list.
+		* @throws IndexOutOfBoundsException if the list of cars is empty.
+		* @see #sortByPrice()
+		*/
 		public Car getLowestPrice() {
 			
 			this.sortByPrice();
@@ -439,6 +464,17 @@ public class CarShop {
 			
 		}
 		
+		/**
+		* Sorts the list of cars by their mileage in ascending order.
+		* This method uses the Collections.sort() method to sort the current list of cars
+		* by their mileage. It implements a Comparator<Car> object that compares the mileage
+		* of each Car instance in the list using the getMileage() method. The resulting sorted
+		* list is in ascending order based on the mileage of the cars.
+		* @throws UnsupportedOperationException if the list of cars is not modifiable.
+		* @see Collections#sort(List)
+		* @see Comparator
+		* @see Car#getMileage()
+		*/
 		private void sortByMileage() {
 		       Collections.sort(this, new Comparator<Car>() {
 		            public int compare(Car c1, Car c2) {
@@ -477,6 +513,10 @@ public class CarShop {
 
 	}
 	
+	/**
+	* Presents a menu to the user and waits for input
+	@see Scanner
+	*/
 	private void menuChoice() {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -486,8 +526,8 @@ public class CarShop {
 	        do {
 	            System.out.println("Please choose an option:");
 	            System.out.println("1. Input new car");
-	            System.out.println("2. Sort By Model (Alphabetical Order)");
-	            System.out.println("3. Sort By Price (Lowest To Highest)");
+	            System.out.println("2. List Cars (Sorted by Model");
+	            System.out.println("3. List Cars (Sort By Price)");
 	            System.out.println("4. Car with lowest mileage");
 	            System.out.println("5. Car with lowest price");
 	            System.out.println("6. Search by ID");
@@ -502,25 +542,20 @@ public class CarShop {
 	            
 	            switch (choice) {
 	                case 1:
-	                    System.out.println("You chose option 1.");
 	                    vertu.addCar(scanner);
 	                    break;
 	                case 2:
-	                    System.out.println("You chose option 2.");
 	                    inStock.sortByModel();
 	                    vertu.listCars(inStock);
 	                    break;
 	                case 3:
-	                    System.out.println("You chose option 3.");
 	                    inStock.sortByPrice();
 	                    vertu.listCars(inStock);
 	                    break;
 	                case 4:
-	                    System.out.println("You chose option 4.");
 	                    vertu.printCarDetails(inStock.getLowestMilage(), false);
 	                    break;
 	                case 5:
-	                    System.out.println("You chose option 5.");
 	                    vertu.printCarDetails(inStock.getLowestPrice(), false);
 	                    break;
 	                case 6:
@@ -530,6 +565,10 @@ public class CarShop {
 	                    break;
 	                case 7:
 	                	vertu.manufacturerReport(inStock);
+	                	break;
+	                case 8:
+	                	// exiting programme
+	                	break;
 	                default:
 	                    System.out.println("Invalid Choice");
 	                    break;
@@ -544,6 +583,14 @@ public class CarShop {
 	        
 	}
 
+	/**
+	* Adds a new car to the inventory.
+	* Prompts the user to enter the details of the car, including ID, manufacturer, model, year, mileage, engine size, grade, and price.
+	* If the details are valid, a new Car object is created and added to the inventory.
+	* If any of the details are invalid, an IllegalArgumentException is thrown and an error message is printed to the console.
+	*
+	* @param scn the Scanner object used to read input from the console
+	*/
 	private void addCar(Scanner scn) {
 		
 		Car newCar = new Car();
@@ -585,7 +632,10 @@ public class CarShop {
 		
 		
 		
-	
+	/**
+	* Prints the header for the inventory table, which includes the column labels for ID, manufacturer, model, year, mileage, engine size, grade, and price.
+	* Uses ANSI escape codes to make the text bold.
+	*/
 	private void printHeader() {
 	
 	System.out.print("\033[1m");
@@ -593,7 +643,22 @@ public class CarShop {
 	System.out.print("\033[0m");
 	
 }
-	
+	/**
+	 * Prints the details of a car, including its ID, manufacturer, model, year, mileage, engine size, grade, and price.
+	 * If the boolean parameter printConditionDescription is true, it prints the condition description of the car's grade
+	 * instead of its letter grade.
+	 * 
+	 * @param toPrint The car object whose details are to be printed.
+	 * @param printConditionDescription A boolean parameter that indicates whether to print the condition description of the
+	 * car's grade (true) or its letter grade (false).
+	 */
+
+	/**
+	 * Prints the details of a car.
+	 *
+	 * @param toPrint the car whose details will be printed
+	 * @param printConditionDescription if true, the condition of the car's grade will be printed instead of the grade
+	 */
 	private void printCarDetails(Car toPrint, boolean printConditionDescription) {
 		
 		
@@ -607,6 +672,14 @@ public class CarShop {
 	}
 
 }
+	/**
+
+	* Prints a list of cars from a given CarStock object without printing the condition description.
+	* The method calls the printHeader() method to print the header of the table, then iterates over the
+	* CarStock object passed as a parameter to print the details of each car using the printCarDetails()
+	* method.
+	* @param toList a CarStock object representing the list of cars to print.
+	*/
 	private void listCars(CarStock toList) {
 	
 	printHeader();
@@ -614,6 +687,11 @@ public class CarShop {
 	
 }
 	
+	/**
+	* Generates a manufacturer report based on the given CarStock object, including the manufacturer name,
+	* number of cars for each manufacturer, and the total value of each manufacturer's stock.
+	* @param stockList a CarStock object to generate a report for.
+	*/
 	private void manufacturerReport(CarStock stockList) {
 		
 		HashMap<String,mfrSummary> summaryReport = new HashMap<String,mfrSummary>();
@@ -644,35 +722,20 @@ public class CarShop {
 		summaryReport.forEach((key, mfr) -> {
 			System.out.printf("%-3s%-15s%-6s%-12s\n", mfr.getId(), key, mfr.getVehCount(), mfr.getTotalValue());
 		});
-		
-		
 	}
 	
 
-
+	/**
+	* The main method of the CarShop class. It populates the "inStock" CarStock object with test data if any command-line arguments are provided, then calls the menuChoice method to start the program's menu system.
+	* @param args the command-line arguments passed to the program
+	*/
 	public static void main(String[] args) {
 		
 
+	if (args.length != 0) inStock.populateTestData();
 	
-	
-	
-	inStock.populateTestData();
 	vertu.menuChoice();
+	}
 	
 	
-	//vertu.listCars(inStock);
-	//inStock.sortByModel();
-	//vertu.listCars(inStock);
-	//inStock.sortByPrice();
-	//vertu.listCars(inStock);
-	//vertu.printCarDetails(inStock.getByID(3),true);
-	
-	
-	//vertu.manufacturerReport(inStock);
-	
-	//vertu.printCarDetails(inStock.lowestMilage());
-	
-	
-	
-}
 }
