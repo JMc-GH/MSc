@@ -245,8 +245,12 @@ public class SortAlgos {
 	// MAIN
 	public static void main(String[] args) {
 		
-//		SortAlgos testSort = new SortAlgos();
-//		
+
+		SortAlgos testSort = new SortAlgos();
+
+		
+		Integer[] testData = {1,100,121,41,91,31};
+		
 //		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
 //		Helpers.printArray(testSort.A);
 //		testSort.mergeSort(0,testSort.A.length-1); 
@@ -257,13 +261,14 @@ public class SortAlgos {
 //		testSort.quickSort(0, 9);
 //		Helpers.printArray(testSort.A);
 		
-//		testSort.A = Helpers.generateRandomArray(Integer.class, 10);
-//		Helpers.printArray(testSort.A);
-//		testSort.buildMaxHeap();
-//		testSort.heapSort();
-//		Helpers.printArray(testSort.A);
+		//testSort.A = Helpers.generateRandomArray(Integer.class, 10);
+		testSort.A = testData; 
+		Helpers.printArray(testSort.A);
+		testSort.buildMaxHeap();
+		testSort.heapSort();
+		Helpers.printArray(testSort.A);
 		
-		System.out.println((char) 97);
+
 		
 
 	}
